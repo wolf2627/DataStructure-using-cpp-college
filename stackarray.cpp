@@ -5,29 +5,29 @@ using namespace std;
 
 const int maxsize = 100;
 
-class Stack {
+class Stack { //class block for stack using array
     private: 
         int a[maxsize];
         int top;
     public:
-        int size, x;
-        Stack() {
-            top = -1;
-            cout << "Enter the size of the stack: ";
+        int size, x; 
+        Stack() { //default constructor
+            top = -1; 
+            cout << "Enter the size of the stack: "; //getting size from user
             cin >> size;
         }
 
-        bool isFull() {
+        bool isFull() { //returns true if stack is full
             return (top == size - 1);
         }
 
-        bool isEmpty() {
+        bool isEmpty() { //returns true if stack is empty
             return top == -1;
         }
 
-        void push() {
-            if (isFull()) {
-                cout << "Stack is full.So, you can't push element" << endl;
+        void push() { //method for insertion
+            if (isFull()) { //checks whether the stack is full or not
+                cout << "Stack is full.So, you can't push element" << endl; 
             } else {
                 cout<<"Enter element to push: ";
                 cin>>x;

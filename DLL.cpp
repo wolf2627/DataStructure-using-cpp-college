@@ -10,7 +10,7 @@ class Node //class node for doubly linked list
 		Node *next,*prev;
 };
 
-Node *head = NULL,*y,*temp; //creating node variables 
+Node *head =NULL,*y,*temp; //creating node variables 
 	
 class Linked_list //class block for defining the operations
 {
@@ -163,7 +163,7 @@ class Linked_list //class block for defining the operations
                     if(any==n-1)
                         goto end;
                     if(any>0 && any<n-1){ //cheching for the position's possiblites
-                    for (int i=0; i<any-1; i++) //traversing till the position to be deleted
+                    for (int i=0; i<any-2; i++) //traversing till the position to be deleted
                         y = y->next;
                     temp = y->next; //assigning the deleting the node to the temp variable
                     y->next = temp->next;

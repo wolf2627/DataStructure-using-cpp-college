@@ -24,64 +24,68 @@ public:
     }
 
     void insertTerm(int coef, int exp) {
-        Node* y = new Node(coef, exp);
+        Node* x = new Node(coef, exp);
 
         if (head == NULL || exp > head->exp) {
-            y->next = head;
-            head = y;
+            x->next = head;
+            head = x;
         } else {
-            Node* current = head;
-            while (current->next != NULL && exp < current->next->exp) {
-                current = current->next;
+            Node* y = head;
+            while (y->next != NULL && exp < y->next->exp) {
+                y = y->next;
             }
-            y->next = current->next;
-            current->next = y;
+            x->next = y->next;
+            y->next = x;
         }
     }
 
     Polynomial addSubtractPolynomials(Polynomial& other, bool isAddition) {
         Polynomial result;
-        Node* current1 = head;
-        Node* current2 = other.head;
+        Node* y1 = head;
+        Node* y2 = other.head;
 
-        while (current1 != NULL && current2 != NULL) {
-            if (current1->exp == current2->exp) {
-                int resultCoef = isAddition ? (current1->coef + current2->coef) : (current1->coef - current2->coef);
-                result.insertTerm(resultCoef, current1->exp);
-                current1 = current1->next;
-                current2 = current2->next;
-            } else if (current1->exp > current2->exp) {
-                result.insertTerm(current1->coef, current1->exp);
-                current1 = current1->next;
+        while (y1 != NULL && y2 != NULL) {
+            if (y1->exp == y2->exp) {
+                int resultCoef = isAddition ? (y1->coef + y2->coef) : (y1->coef - y2->coef);
+                result.insertTerm(resultCoef, y1->exp);
+                y1 = y1->next;
+                y2 = y2->next;
+            } else if (y1->exp > y2->exp) {
+                result.insertTerm(y1->coef, y1->exp);
+                y1 = y1->next;
             } else {
-                int resultCoef = isAddition ? current2->coef : -current2->coef;
-                result.insertTerm(resultCoef, current2->exp);
-                current2 = current2->next;
+                int resultCoef = isAddition ? y2->coef : -y2->coef;
+                result.insertTerm(resultCoef, y2->exp);
+                y2 = y2->next;
             }
         }
 
-        while (current1 != NULL) {
-            result.insertTerm(current1->coef, current1->exp);
-            current1 = current1->next;
+        while (y1 != NULL) {
+            result.insertTerm(y1->coef, y1->exp);
+            y1 = y1->next;
         }
 
-        while (current2 != NULL) {
-            int resultCoef = isAddition ? current2->coef : -current2->coef;
-            result.insertTerm(resultCoef, current2->exp);
-            current2 = current2->next;
+        while (y2 != NULL) {
+            int resultCoef = isAddition ? y2->coef : -y2->coef;
+            result.insertTerm(resultCoef, y2->exp);
+            y2 = y2->next;
         }
 
         return result;
     }
 
     void display() {
-        Node* current = head;
-        while (current != NULL) {
-            cout << current->coef << "x^" << current->exp;
-            if (current->next != NULL) {
+        Node* y = head;
+        while (y != NULL) {
+            if(y->coef < 0){
+                cout<<"("<<y->coef << "x^" << y->exp<<")";
+            } else {
+            cout << y->coef << "x^" << y->exp;
+            }
+            if (y->next != NULL) {
                 cout << " + ";
             }
-            current = current->next;
+            y = y->next;
         }
         cout << endl;
     }
